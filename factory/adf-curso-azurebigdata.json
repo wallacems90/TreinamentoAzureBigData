@@ -1,0 +1,9 @@
+{
+	"name": "adf-curso-azurebigdata",
+	"location": "eastus2",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "eb925470-a8ae-475f-896e-df7edf340b6d",
+		"tenantId": "82ec939c-0d03-4190-82a6-ae300819bee4"
+	}
+}
