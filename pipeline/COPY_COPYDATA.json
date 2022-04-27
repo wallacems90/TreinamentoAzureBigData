@@ -130,7 +130,10 @@
 						"parameters": {
 							"ContainerName": "raw",
 							"FolderName": ".",
-							"FileName": "TB_ADF_COPY_TARGET.csv",
+							"FileName": {
+								"value": "@concat('TB_ADF_COPY_TARGET_',utcnow('yyyyMMdd'),'.csv')",
+								"type": "Expression"
+							},
 							"delimiterName": ";"
 						}
 					}
