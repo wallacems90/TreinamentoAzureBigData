@@ -65,6 +65,142 @@
 						}
 					}
 				]
+			},
+			{
+				"name": "Copy SQL to DataLake",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Copy SQL to Sql",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "SELECT* FROM [SalesLT].[TB_ADF_COPY_TARGET]",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_SQLDB_GENERICO",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "*",
+							"SchemaName": "*"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_FILE_GENERICO",
+						"type": "DatasetReference",
+						"parameters": {
+							"ContainerName": "raw",
+							"FolderName": "."
+						}
+					}
+				]
+			},
+			{
+				"name": "Copy SQL to Sql",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Excel to SqlDB",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "upsert",
+						"upsertSettings": {
+							"useTempDB": true,
+							"keys": [
+								"id"
+							]
+						},
+						"sqlWriterUseTableLock": false,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_SQLDB_GENERICO",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "TB_ADF_COPY_SOURCE",
+							"SchemaName": "SalesLT"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_SQLDB_GENERICO",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "TB_ADF_COPY_TARGET",
+							"SchemaName": "SalesLT"
+						}
+					}
+				]
 			}
 		],
 		"folder": {
