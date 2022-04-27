@@ -129,7 +129,9 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"ContainerName": "raw",
-							"FolderName": "."
+							"FolderName": ".",
+							"FileName": "TB_ADF_COPY_TARGET.csv",
+							"delimiterName": ";"
 						}
 					}
 				]
