@@ -45,7 +45,7 @@
 					"storedProcedureName": "[SalesLT].[proc_activity_adf02_in]",
 					"storedProcedureParameters": {
 						"preco": {
-							"value": "10",
+							"value": "55",
 							"type": "Decimal"
 						}
 					}
