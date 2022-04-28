@@ -1,0 +1,9 @@
+{
+	"name": "COPY_GETMETADATA_FOREACH_FILTER",
+	"properties": {
+		"folder": {
+			"name": "PIPELINE_ACTIVITIES"
+		},
+		"annotations": []
+	}
+}
