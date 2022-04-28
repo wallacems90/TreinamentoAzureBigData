@@ -151,8 +151,8 @@
 						"referenceName": "DS_SQLDB_GENERICO",
 						"type": "DatasetReference",
 						"parameters": {
-							"TableName": "TB_PlanCor",
-							"SchemaName": "SalesLT"
+							"TableName": "SalesLT",
+							"SchemaName": "TB_PlanCor"
 						}
 					},
 					"fieldList": [
